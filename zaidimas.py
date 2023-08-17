@@ -8,12 +8,15 @@
 #                        suks ciklą per lentelę,
 #                        atspausdins laimėjusį žaidėję arba lygiąsias.
 
-# Lentelės piešimas:
+# Lentelės vaizdas:
 def lentelės_piešimas(vieta):
-    lentelė = (f"|{vieta[7]}|{vieta[8]}|{vieta[9]}\n"
-               f"|{vieta[4]}|{vieta[5]}|{vieta[6]}\n"
-               f"|{vieta[1]}|{vieta[2]}|{vieta[3]}")
-    print(lentelė)
+    print("      {} | {} | {} ".format(vieta[6], vieta[7], vieta[8]))
+    print("\t ___|___|___")
+    print("      {} | {} | {} ".format(vieta[3], vieta[4], vieta[5]))
+    print("\t ___|___|___")
+    print("      {} | {} | {} ".format(vieta[0], vieta[1], vieta[2]))
+    print("\t    |   |   ")
+
 
 # Priskirti skaičiai kurie pakeis lentelėje esamus skaičius į X arba 0 simbolius.
 vieta = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9"}
@@ -61,6 +64,7 @@ def laimėjimo_galimybės(vieta, žaidėjas1, žaidėjas2):
         quit()
     else:
         return
+
 
 # Leis įvesti žaidėjo vardą,
 # priskirs simboli (X arba 0),
