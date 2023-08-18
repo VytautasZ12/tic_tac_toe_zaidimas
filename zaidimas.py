@@ -40,12 +40,12 @@ def žaidimo_ciklas(žaidėjo_ėjimas):
     while True:
         lentelės_piešimas(vieta)
         try:
-            įvestas_skaičius = int(input(f"{žaidėjo_ėjimas}, Įveskite skaičių nuo 1 iki 9: "))
+            įvestas_skaičius = int(input(f"{žaidėjo_ėjimas}, Pasirinkite skaičių nuo 1 iki 9: "))
         except ValueError:
-            print("Blogas įvedimas, bandykite dar kartą")
+            print("Netinkamas įvedimas, reikia įvesti skaičių!")
             continue
         if įvestas_skaičius < 1 or įvestas_skaičius > 9:
-            print("Blogas įvedimas, bandykite dar kartą")
+            print("Netinkamas skaičius!")
             continue
         if vieta[įvestas_skaičius - 1] != " ":
             print("Pasirinkta vieta užimta, pasirinkite kitą vietą:")
@@ -66,3 +66,54 @@ def žaidimo_ciklas(žaidėjo_ėjimas):
         else:
             žaidėjo_ėjimas = "X"
 
+
+if __name__ == "__main__":
+    žaidėjas1 = input("Įveskite pirmo žaidėjo vardą: ")
+    žaidėjas2 = input("Įveskite antro žaidėjo vardą: ")
+    žaidėjo_ėjimas = žaidėjas1
+    žaidėjo_pasirinkimas = {"X": "", "O": ""}
+    galimas_pasirinkimas = ["X", "O"]
+    taškai = {žaidėjas1: 0, žaidėjas2: 0}
+    rezultatai(taškai)
+
+    while True:
+        print(žaidėjo_ėjimas, "Pasirinkite savo simbolį (X arba O): ", "\n")
+        print("Spauskite 1 jei norite pasirinkti X: ")
+        print("Spauskite 2 jei norite pasirinkti O: ")
+        print("Spauskite 0 jei norite IŠEITI:")
+        try:
+            pasirinkimas = int(input())
+        except ValueError:
+            print("Reikia įvesti skaičių")
+            continue
+        if pasirinkimas < 0 or pasirinkimas > 3:
+            print("Reikia pasirinkti skaičių: 1, 2 arba 0: ")
+            continue
+        if pasirinkimas == 1:
+            žaidėjo_pasirinkimas["X"] = žaidėjo_ėjimas
+            if žaidėjo_ėjimas == žaidėjas1:
+                žaidėjo_pasirinkimas["O"] = žaidėjas2
+            else:
+                žaidėjo_pasirinkimas["O"] = žaidėjas1
+        elif pasirinkimas == 2:
+            žaidėjo_pasirinkimas["O"] = žaidėjo_ėjimas
+            if žaidėjo_ėjimas == žaidėjas1:
+                žaidėjo_pasirinkimas["X"] = žaidėjas2
+            else:
+                žaidėjo_pasirinkimas["X"] = žaidėjas1
+        elif pasirinkimas == 0:
+            print("Žaidimas baigtas")
+            rezultatai(taškai)
+            break
+
+        laimėtojas = žaidimo_ciklas(galimas_pasirinkimas[pasirinkimas - 1])
+
+        if laimėtojas != "=":
+            žaidėjas_laimėjo = žaidėjo_pasirinkimas[laimėtojas]
+            taškai[žaidėjas_laimėjo] = taškai[žaidėjas_laimėjo] + 1
+
+            rezultatai(taškai)
+        if žaidėjo_ėjimas == žaidėjas1:
+            žaidėjo_ėjimas = žaidėjas2
+        else:
+            žaidėjo_ėjimas = žaidėjas1
