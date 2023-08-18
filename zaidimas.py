@@ -1,14 +1,4 @@
-# Nupiešti lentelę.
-# Priskirti skaičius kureis bus galima įrašyti X arba 0 lentelėje.
-# Sukurti funkciją kuri patikrintų ar nebus pajimamas tas pats langelis abiejų žaidėjų.
-# Sukurti fukciją kurioje būtų nurodomi žaidėjų laimejimo galimybės
-#   (horizontaliai, vertikaliai, įstrižai). Nurodytų kuris žaidėjas laimėjo.
-# Sukurti funkciją kuri: leistų įvesti žaidėjo vardą,
-#                        įvestam vardui priskirtų simbolį (X arba 0),
-#                        suks ciklą per lentelę,
-#                        atspausdins laimėjusį žaidėję arba lygiąsias.
-
-# Lentelės vaizdas:
+# Lentelės vaizdavimas.
 def lentelės_piešimas(vieta):
     print("      {} | {} | {} ".format(vieta[6], vieta[7], vieta[8]))
     print("\t ___|___|___")
@@ -17,53 +7,25 @@ def lentelės_piešimas(vieta):
     print("      {} | {} | {} ".format(vieta[0], vieta[1], vieta[2]))
     print("\t    |   |   ")
 
+# Rezultatų lentelė, kurioje bus rodomi žaidėjų vardai ir taškai po kiekvieno žaidimo.
+def rezultatai(taškai):
+    print("\t-------------------")
+    print("\t Rezultatų lentelė")
+    print("\t-------------------")
 
-# Priskirti skaičiai kurie pakeis lentelėje esamus skaičius į X arba 0 simbolius.
-vieta = {1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9"}
+    žaidėjų_sąrašas = list(taškai.keys())
 
-įvestų_skaičių_įrašas = []
+    print("\t ", žaidėjų_sąrašas[0], "\t", taškai[žaidėjų_sąrašas[0]])
+    print("\t ", žaidėjų_sąrašas[1], "\t", taškai[žaidėjų_sąrašas[1]])
+    print("\t-------------------\n")
+# Gilimos laimėjimo kombinacijos, horizontaliai, vertikaliai, įstrižai.
+def laimėjimo_patvirtinimas(žaidėjo_vieta, žaidėjo_ėjimas):
+    laimėjimo_kombinacijos = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    for kombinacijos in laimėjimo_kombinacijos:
+        if all(skaičiai in žaidėjo_vieta[žaidėjo_ėjimas] for skaičiai in kombinacijos):
+            return True
+    return False
 
-
-# Funkcija kuri neleis žaidėjams užimti to paties langelio,
-# nurodys, kad langelis užimtas ir leis pasirinkti kitą langelį.
-def ėjimų_įvedimas(žaidėjo_vardas):
-    while True:
-        x = int(input(f"{žaidėjo_vardas}: "))
-        x -= 0
-        if 0 <= x < 10:
-            if x in įvestų_skaičių_įrašas:
-                print("Pasirinkta vieta užimta, pasirinkite kitą vietą:")
-                continue
-            įvestų_skaičių_įrašas.append(x)
-            return x
-        print("Pasirinkite skaičių nuo 1 iki 9")
-
-
-# Galimo laimėjimo kombinacijos kiekvienam žaidėjui (X ir 0).
-# Horizontaliai, vertikaliai, įstrižai.
-def laimėjimo_galimybės(vieta, žaidėjas1, žaidėjas2):
-    if (vieta[1] == vieta[2] == vieta[3] == "X"
-            or vieta[4] == vieta[5] == vieta[6] == "X"
-            or vieta[7] == vieta[8] == vieta[9] == "X"
-            or vieta[1] == vieta[4] == vieta[7] == "X"
-            or vieta[2] == vieta[5] == vieta[8] == "X"
-            or vieta[3] == vieta[6] == vieta[9] == "X"
-            or vieta[1] == vieta[5] == vieta[9] == "X"
-            or vieta[3] == vieta[5] == vieta[7] == "X"):
-        print(f"{žaidėjas1}. Jūs laimėjote!")
-        quit()
-    elif (vieta[1] == vieta[2] == vieta[3] == "0"
-          or vieta[4] == vieta[5] == vieta[6] == "0"
-          or vieta[7] == vieta[8] == vieta[9] == "0"
-          or vieta[1] == vieta[4] == vieta[7] == "0"
-          or vieta[2] == vieta[5] == vieta[8] == "0"
-          or vieta[3] == vieta[6] == vieta[9] == "0"
-          or vieta[1] == vieta[5] == vieta[9] == "0"
-          or vieta[3] == vieta[5] == vieta[7] == "0"):
-        print(f"{žaidėjas2}. Jūs laimėjote!")
-        quit()
-    else:
-        return
 
 
 # Leis įvesti žaidėjo vardą,
